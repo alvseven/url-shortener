@@ -7,4 +7,5 @@ async function bootstrap() {
 
   await app.listen(parsedEnvs.API_PORT);
 }
+
 bootstrap();
