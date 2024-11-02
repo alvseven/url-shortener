@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Controller, Post, Req } from '@nestjs/common';
 import type { Request } from 'express';
 
 import { LinkService } from './generate-link.service';
@@ -17,10 +17,5 @@ export class LinkController {
     );
 
     return generatedLink;
-  }
-
-  @Get()
-  getBy() {
-    return 'Hello, Alves!';
   }
 }
