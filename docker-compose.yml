@@ -10,7 +10,6 @@ services:
       - ./prisma:/home/node/app/prisma
       - ./package.json:/home/node/app/package.json
       - ./pnpm-lock.yaml:/home/node/app/pnpm-lock.yaml
-      - ./tsconfig.buid.json:/home/node/app/tsconfig.buid.json
       - ./tsconfig.json:/home/node/app/tsconfig.json
     ports:
       - "3333:3333"
