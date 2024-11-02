@@ -23,12 +23,12 @@ model Link {
   id          String   @id @default(uuid())
   originalUrl String
   shortUrl    String   @unique
-  userId      String
+  userId      String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   clicks      Int      @default(0)
 
-  user User @relation("UserLinks", fields: [userId], references: [id])
+  user User? @relation("UserLinks", fields: [userId], references: [id])
 
   @@map("links")
 }
