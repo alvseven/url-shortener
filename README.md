@@ -1,99 +1,98 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Encurtador de URL 
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Esta API permite encurtar URLs e redirecionar URLs previamente encurtadas. Ela inclui recursos para contabilizar cliques (redirecionamentos), criar e autenticar usuários, e realizar operações de listagem, atualização e exclusão de URLs encurtadas
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Principais tecnologias utilizadas
 
-## Description
+- **Node.js**: Ambiente de execução para JavaScript no servidor
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **TypeScript**: Linguagem de programação fortemente tipada, que ajuda a detectar erros em tempo de desenvolvimento e torna o código mais robusto e fácil de manter
 
-## Project setup
+- **Nest**: Framework para construção de aplicações Node.js
+
+- **Express**: Biblioteca para construção de servidores web (utilizada por padrão pelo Nest)
+
+- **Zod**: Biblioteca para validação de dados de entrada e saída, com bom suporte a infêrencia de tipos estática
+
+- **Prisma**: ORM para trabalhar com o banco de dados (Postgres)
+
+- **Postgres**: Banco de dados relacional
+
+- **Nanoid**: Biblioteca para geração de identificadores únicos curtos
+
+- **JWT**: Biblioteca para autenticação de usuário via JSON Web Token
+
+- **Bcryptjs**: Biblioteca para geração e comparação de hashs de senha
+
+- **Docker**: Para conteinerização da aplicação e do ambiente de banco de dados
+
+
+## Estrutura de Pastas
+
+A aplicação segue uma estrutura modular e é separada em camadas, além de utilizar package/folder by feature nos módulos:
+
+- **/modules**: contém os módulos da aplicação. Cada módulo possui suas próprias rotas, decorators, guards, controllers, DTOs, services, repositories, etc
+
+  - **/auth**: módulo de autenticação de usuários
+
+  - **/users**: módulo de gerenciamento de usuários
+
+  - **/links**: módulo de URLs
+
+- **/shared**: funcionalidades e configurações compartilhadas entre os módulos
+
+  - **/config**: configurações gerais da aplicação
+
+  - **/database**: configurações e helpers relacionados ao banco de dados
+
+  - **/helpers**: funções e tipos auxiliares
+
+  - **/dtos**: exemplo de DTOs e padronização de mensagens de erro
+
+  - **/errors**: classes de erro personalizadas com mensagens e códigos HTTP apropriados
+
+## Como rodar a aplicação
+
+### Requisitos
+
+- **Docker**: Certifique-se de que o Docker está instalado em sua máquina
+
+- **Pnpm**: Sistema de gerenciamento de pacotes (usado para instalar dependências localmente, se necessário)
+
+#### Variáveis de ambiente
+
+Antes de iniciar a aplicação, configure as variáveis de ambiente. Um exemplo de arquivo `.env` está disponível em `.env.example`. As variáveis principais incluem:
+
+- `NODE_ENV`: ambiente (ex: development, production)
+- `POSTGRES_USER:` Usuário do banco de dados
+- `POSTGRES_PASSWORD`: Senha do usuário no banco de dados
+- `DATABASE_URL`: URL de conexão com o banco de dados Postgres
+- `API_PORT`: Porta onde a API será exposta.
+- `API_URL`: URL da API 
+- `JWT_SECRET`: Secret usado para assinar o token JWT
+- `JWT_EXPIRES_IN`: Tempo de expiração do token JWT (ex: 24h)
+
+#### Passos para rodar a aplicação com Docker
+
+#### 1. Clone este repositório (HTTPS) e entre no diretório do projeto:
 
 ```bash
-$ pnpm install
+git clone https://github.com/alvseven/url-shortener.git
+
+cd url-shortener
 ```
 
-## Compile and run the project
+#### 2. Crie um arquivo ```.env```, utilizando o arquivo ```.env.example``` como exemplo:
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+cp .env.example .env
 ```
 
-## Run tests
+#### 3. Inicie a aplicação:
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+  docker compose up
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+> [!IMPORTANT]  
+> Para facilitar e agilizar o processo, você pode usar as mesmas variáveis de ambiente definidas em ```.env.example```
