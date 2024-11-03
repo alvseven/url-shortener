@@ -53,4 +53,14 @@ export class PrismaLinksRepository {
 
     return updatedLink;
   }
+
+  public async updateClicksCountById(
+    id: LinkModel['shortUrl'],
+    newClicksCount: LinkModel['clicks'],
+  ) {
+    await this.repository.update({
+      where: { id },
+      data: { clicks: newClicksCount },
+    });
+  }
 }

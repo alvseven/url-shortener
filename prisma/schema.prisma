@@ -40,5 +40,7 @@ model Link {
 
   user User? @relation("UserLinks", fields: [userId], references: [id])
 
+  clicks Int @default(0)
+
   @@map("links")
 }

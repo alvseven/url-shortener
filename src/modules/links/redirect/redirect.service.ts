@@ -14,6 +14,13 @@ export class RedirectService {
       throw new NotFoundException('URL não encontrada');
     }
 
+    const previousClicksCountPlusOne = link.clicks + 1;
+
+    await this.linksRepository.updateClicksCountById(
+      link.id,
+      previousClicksCountPlusOne,
+    );
+
     return link.originalUrl;
   }
 }
