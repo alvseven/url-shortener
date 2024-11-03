@@ -11,7 +11,7 @@ export class RedirectService {
     const link = await this.linksRepository.findByShortCode(shortCode);
 
     if (!link) {
-      throw new NotFoundException('URL not found');
+      throw new NotFoundException('URL não encontrada');
     }
 
     return link.originalUrl;

@@ -1,8 +1,8 @@
 import { type ZodType, ZodError, z } from 'zod';
 
-import { AppError } from '../errors/app.error';
 import { ValidationError } from '../errors/zod-validation.error';
 import { ZodCustomErrorMap } from './zod-error-map';
+import { InternalServerErrorException } from '@nestjs/common';
 
 export abstract class AbstractDTO<Schema extends ZodType> {
   private zodErrorMap: ZodCustomErrorMap;
@@ -38,7 +38,7 @@ export abstract class AbstractDTO<Schema extends ZodType> {
         throw new ValidationError(error);
       }
 
-      throw new AppError('Internal Server Error', 500);
+      throw new InternalServerErrorException('Internal Server Error');
     }
   }
 }
