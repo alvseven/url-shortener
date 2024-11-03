@@ -6,6 +6,7 @@ import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 
 import { parsedEnvs } from 'src/shared/config/env';
+import { PrismaUsersRepository } from './repositories/users.repository';
 
 @Module({
   imports: [
@@ -16,8 +17,8 @@ import { parsedEnvs } from 'src/shared/config/env';
       signOptions: { expiresIn: parsedEnvs.JWT_EXPIRES_IN },
     }),
   ],
-  providers: [AuthService],
   controllers: [AuthController],
+  providers: [AuthService, PrismaUsersRepository],
   exports: [AuthService],
 })
 export class AuthModule {}

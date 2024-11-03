@@ -1,33 +1,33 @@
-import type { Link as LinkModel } from '@prisma/client';
+import type { User as UserModel } from '@prisma/client';
 
 import { prisma } from 'src/shared/database/prisma-client';
 
 import type { StrictOmit } from 'src/shared/helpers/types/strict-omit';
 
-export class PrismaLinksRepository {
-  private repository = prisma.link;
+export class PrismaUsersRepository {
+  private repository = prisma.user;
 
   public async save(
-    data: Pick<LinkModel, 'originalUrl' | 'shortUrl'>,
+    data: Pick<UserModel, 'email' | 'password'>,
     options?: StrictOmit<Parameters<typeof this.repository.create>[0], 'data'>,
   ) {
-    const createdLink = await this.repository.create({
+    const createdUser = await this.repository.create({
       data,
       ...options,
     });
 
-    return createdLink;
+    return createdUser;
   }
 
-  public findByShortCode(
-    shortUrl: LinkModel['shortUrl'],
+  public findByEmail(
+    email: UserModel['email'],
     options?: StrictOmit<
       Parameters<typeof this.repository.findUnique>[0],
       'where'
     >,
   ) {
     return this.repository.findUnique({
-      where: { shortUrl },
+      where: { email },
       ...options,
     });
   }

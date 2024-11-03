@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `users` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "users";
-
 -- CreateTable
 CREATE TABLE "links" (
     "id" TEXT NOT NULL,
@@ -14,6 +5,7 @@ CREATE TABLE "links" (
     "shortUrl" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "clicks" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "links_pkey" PRIMARY KEY ("id")
 );

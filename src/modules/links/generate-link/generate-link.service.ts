@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { nanoid } from 'nanoid';
 
-import { GenerateLinkInput } from './generate-link.dto';
+import type { GenerateLinkInput } from './generate-link.dto';
 import { PrismaLinksRepository } from '../repositories/links.repository';
 
 import { parsedEnvs } from 'src/shared/config/env';

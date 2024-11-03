@@ -1,5 +1,5 @@
 import {
-  CanActivate,
+  type CanActivate,
   ExecutionContext,
   Injectable,
   UnauthorizedException,
@@ -14,12 +14,12 @@ import { parsedEnvs } from 'src/shared/config/env';
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
-  async canActivate(context: ExecutionContext): Promise<boolean> {
+  async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token não encontrado');
     }
 
     try {
@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
 
       request['user'] = payload;
     } catch {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Token expirado ou inválido');
     }
     return true;
   }
