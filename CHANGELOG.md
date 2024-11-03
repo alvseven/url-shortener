@@ -1,5 +1,11 @@
 # url-shortener
 
+## 0.3.0
+
+### Minor Changes
+
+- Add authentication and links get all, update and soft delete
+
 ## 0.2.0
 
 ### Minor Changes
