@@ -31,4 +31,14 @@ export class PrismaLinksRepository {
       ...options,
     });
   }
+
+  public async softDelete(
+    shortCode: LinkModel['shortUrl'],
+    deletedAt: LinkModel['deletedAt'],
+  ) {
+    await this.repository.update({
+      where: { shortUrl: shortCode },
+      data: { deletedAt },
+    });
+  }
 }
