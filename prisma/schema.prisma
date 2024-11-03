@@ -36,8 +36,6 @@ model Link {
 
   updatedAt DateTime @updatedAt
 
-  clicks Int @default(0)
-
   user User? @relation("UserLinks", fields: [userId], references: [id])
 
   @@map("links")
