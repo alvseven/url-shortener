@@ -12,7 +12,7 @@ export class RedirectController {
   async redirectToOriginalUrl(@Param('shortCode') shortCode: unknown) {
     const parsedRequest = new RedirectRequestDTO({ shortCode });
 
-    const originalUrl = await this.redirectService.redirect(
+    const originalUrl = await this.redirectService.getOriginalUrl(
       parsedRequest.get('shortCode'),
     );
 

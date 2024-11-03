@@ -7,7 +7,7 @@ import type { RedirectInput } from './redirect.dto';
 export class RedirectService {
   constructor(private readonly linksRepository: PrismaLinksRepository) {}
 
-  public async redirect(shortCode: RedirectInput['shortCode']) {
+  public async getOriginalUrl(shortCode: RedirectInput['shortCode']) {
     const link = await this.linksRepository.findByShortCode(shortCode);
 
     if (!link) {
