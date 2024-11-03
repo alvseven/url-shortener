@@ -36,6 +36,8 @@ model Link {
 
   updatedAt DateTime @updatedAt
 
+  deletedAt DateTime?
+
   user User? @relation("UserLinks", fields: [userId], references: [id])
 
   @@map("links")
