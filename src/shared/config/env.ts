@@ -17,6 +17,8 @@ const envSchema = z.object({
 
       return urlHasTrailingSlash ? url.slice(0, -1) : url;
     }),
+  JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.string(),
 });
 
 export const parsedEnvs = Object.freeze(envSchema.parse(process.env));
