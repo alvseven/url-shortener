@@ -1,5 +1,11 @@
 # url-shortener
 
+## 0.4.0
+
+### Minor Changes
+
+- Add clicks count
+
 ## 0.3.0
 
 ### Minor Changes
