@@ -12,7 +12,7 @@ export class GetUserLinksController {
 
   @Get()
   @UseGuards(AuthGuard)
-  async create(@Req() request: Request) {
+  async getUserLinks(@Req() request: Request) {
     const userId = request?.user?.id || null;
 
     const parsedRequest = new GetUserLinksRequestDTO({

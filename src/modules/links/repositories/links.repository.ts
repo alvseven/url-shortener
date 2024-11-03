@@ -41,4 +41,16 @@ export class PrismaLinksRepository {
       data: { deletedAt },
     });
   }
+
+  public async updateByShortCode(
+    shortCode: LinkModel['shortUrl'],
+    newUrl: LinkModel['originalUrl'],
+  ) {
+    const updatedLink = await this.repository.update({
+      where: { shortUrl: shortCode },
+      data: { originalUrl: newUrl },
+    });
+
+    return updatedLink;
+  }
 }

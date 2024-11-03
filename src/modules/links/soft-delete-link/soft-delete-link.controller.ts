@@ -21,7 +21,7 @@ export class SoftDeleteLinkController {
   @Delete(':shortCode')
   @UseGuards(AuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
-  async findLink(
+  async softDeleteLink(
     @Param('shortCode') shortCode: unknown,
     @Req() request: Request,
   ) {

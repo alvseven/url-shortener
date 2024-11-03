@@ -10,18 +10,22 @@ import { PrismaLinksRepository } from './repositories/links.repository';
 import { PrismaUsersRepository } from './repositories/users.repository';
 import { SoftDeleteLinkController } from './soft-delete-link/soft-delete-link.controller';
 import { SoftDeleteLinkService } from './soft-delete-link/soft-delete-link.service';
+import { UpdateLinkService } from './update-link/update-link.service';
+import { UpdateLinkController } from './update-link/update-link.controller';
 
 @Module({
   controllers: [
     GenerateLinkController,
     RedirectController,
     GetUserLinksController,
+    UpdateLinkController,
     SoftDeleteLinkController,
   ],
   providers: [
     GenerateLinkService,
     RedirectService,
     GetUserLinksService,
+    UpdateLinkService,
     SoftDeleteLinkService,
     PrismaLinksRepository,
     PrismaUsersRepository,
