@@ -4,7 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-
+import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 
 import type { Request } from 'express';
@@ -12,13 +12,25 @@ import { parsedEnvs } from 'src/shared/config/env';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private jwtService: JwtService) {}
+  constructor(
+    private jwtService: JwtService,
+    private reflector: Reflector,
+  ) {}
 
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
 
+    const isAuthRequired =
+      this.reflector.get<boolean>('isAuthRequired', context.getHandler()) !==
+      false;
+
     if (!token) {
+      if (!isAuthRequired) {
+        request.user = null;
+        return true;
+      }
+
       throw new UnauthorizedException('Token não encontrado');
     }
 
@@ -27,10 +39,11 @@ export class AuthGuard implements CanActivate {
         secret: parsedEnvs.JWT_SECRET,
       });
 
-      request['user'] = payload;
+      request.user = { id: payload.sub };
     } catch {
       throw new UnauthorizedException('Token expirado ou inválido');
     }
+
     return true;
   }
 

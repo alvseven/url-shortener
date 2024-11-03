@@ -8,7 +8,7 @@ export class PrismaLinksRepository {
   private repository = prisma.link;
 
   public async save(
-    data: Pick<LinkModel, 'originalUrl' | 'shortUrl'>,
+    data: Pick<LinkModel, 'originalUrl' | 'shortUrl' | 'userId'>,
     options?: StrictOmit<Parameters<typeof this.repository.create>[0], 'data'>,
   ) {
     const createdLink = await this.repository.create({
@@ -27,7 +27,7 @@ export class PrismaLinksRepository {
     >,
   ) {
     return this.repository.findUnique({
-      where: { shortUrl },
+      where: { shortUrl, deletedAt: null },
       ...options,
     });
   }
