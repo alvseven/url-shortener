@@ -8,7 +8,7 @@ import { PrismaLinksRepository } from '../repositories/links.repository';
 import { parsedEnvs } from 'src/shared/config/env';
 
 @Injectable()
-export class LinkService {
+export class GenerateLinkService {
   constructor(private readonly linksRepository: PrismaLinksRepository) {}
 
   public async generateLink(url: GenerateLinkInput['url']) {
