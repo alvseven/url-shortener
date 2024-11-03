@@ -13,7 +13,7 @@ export class GenerateLinkService {
 
   public async generateLink(url: GenerateLinkInput['url']) {
     const nanoId = nanoid(6);
-    const shortUrl = `${parsedEnvs.API_URL}/${nanoId}`;
+    const shortUrl = `${parsedEnvs.API_URL}/links/${nanoId}`;
 
     await this.linksRepository.save({
       originalUrl: url,
