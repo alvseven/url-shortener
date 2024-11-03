@@ -94,5 +94,5 @@ cp .env.example .env
   docker compose up
 ```
 
-> [!INFO]  
+> [!IMPORTANT]  
 > Para facilitar e agilizar o processo, você pode usar as mesmas variáveis de ambiente definidas em ```.env.example```
