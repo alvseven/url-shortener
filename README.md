@@ -96,3 +96,15 @@ A aplicação segue uma estrutura modular e é separada em camadas, além de uti
   - **/dtos**: exemplo de DTOs e padronização de mensagens de erro
 
   - **/errors**: classes de erro personalizadas com mensagens e códigos HTTP apropriados
+
+
+
+### Documentação
+
+A documentação da aplicação pode ser encontrada na url /docs, certifique-se de ter a aplicação rodando
+
+### CI
+
+A aplicação conta com uma pipeline de CI configurada para garantir a qualidade do código e a integridade da aplicação, a pipeline realiza a seguintes etapa:
+
+- **Linting**: Verifica a conformidade do código com as regras de estilo e padrões definidos
